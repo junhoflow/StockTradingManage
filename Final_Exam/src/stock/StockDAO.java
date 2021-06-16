@@ -15,7 +15,7 @@ public class StockDAO {
 	
 	public StockDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/final_exam";
+			String dbURL = "jdbc:mysql://localhost:3306/final_exam?characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr";
 			String dbID = "root";
 			String dbPassword = "1662";
 			Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +55,7 @@ public class StockDAO {
 	}
 
 	public int write(String stockName, String buysell, String stockQuantity, String stockPrice, String buyReason, String userID) {
-		String SQL = "INSERT INTO STOCKS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO STOCKS VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext());
@@ -65,8 +65,7 @@ public class StockDAO {
 			pstmt.setString(5, stockPrice);
 			pstmt.setString(6, buyReason);
 			pstmt.setString(7, getDate());
-			pstmt.setInt(8, 1);
-			pstmt.setString(9, userID);
+			pstmt.setString(8, userID);
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -75,7 +74,7 @@ public class StockDAO {
 	}
 	
 	public ArrayList<StockDTO> getList(int pageNumber){
-		String SQL = "SELECT * FROM STOCKS WHERE stockID < ? AND stockAvailable = 1 ORDER BY stockID DESC";
+		String SQL = "SELECT * FROM STOCKS WHERE stockID < ? ORDER BY stockID DESC";
 		ArrayList<StockDTO> list = new ArrayList<StockDTO>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -90,8 +89,7 @@ public class StockDAO {
 				stock.setStockPrice(rs.getString(5));
 				stock.setBuyReason(rs.getString(6));
 				stock.setTodayDate(rs.getString(7));
-				stock.setStockAvailable(rs.getInt(8));
-				stock.setUserID(rs.getString(9));
+				stock.setUserID(rs.getString(8));
 				list.add(stock);
 			}
 		}catch(Exception e) {
@@ -101,7 +99,7 @@ public class StockDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM STOCKS WHERE stockID < ? AND stockAvailable = 1";
+		String SQL = "SELECT * FROM STOCKS WHERE stockID < ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
@@ -130,7 +128,6 @@ public class StockDAO {
 				stock.setStockPrice(rs.getString(5));
 				stock.setBuyReason(rs.getString(6));
 				stock.setTodayDate(rs.getString(7));
-				stock.setStockAvailable(rs.getInt(8));
 				return stock;
 			}
 		}catch(Exception e) {
@@ -156,7 +153,7 @@ public class StockDAO {
 	}
 	
 	public int delete(int stockID) {
-		String SQL = "UPDATE STOCKS SET stockAvailable = 0 WHERE stockID = ?";
+		String SQL = "DELETE FROM STOCKS WHERE stockID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, stockID);

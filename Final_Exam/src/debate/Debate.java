@@ -7,7 +7,6 @@ public class Debate {
 	private String userID;
 	private String debateDate;
 	private String debateContent;
-	private int debateAvailable;
 	public int getDebateID() {
 		return debateID;
 	}
@@ -37,11 +36,5 @@ public class Debate {
 	}
 	public void setDebateContent(String debateContent) {
 		this.debateContent = debateContent;
-	}
-	public int getDebateAvailable() {
-		return debateAvailable;
-	}
-	public void setDebateAvailable(int debateAvailable) {
-		this.debateAvailable = debateAvailable;
 	}
 }

@@ -7,6 +7,7 @@ public class User {
 	private String userName;
 	private String userGender;
 	private String userEmail;
+	private int userNum;
 	public String getUserID() {
 		return userID;
 	}
@@ -36,5 +37,11 @@ public class User {
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	public int getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
 	}
 }

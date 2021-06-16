@@ -52,7 +52,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">주식 매매일지 웹 사이트</a>
+			<a class="navbar-brand" href="main.jsp" style="color: black;"><strong>주식 매매일지 웹 사이트</strong></a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
@@ -60,6 +60,7 @@
 				<li><a href="main.jsp">메인</a></li>
 				<li><a href="stock.jsp">주식매매일지</a></li>
 				<li class="active"><a href="debate.jsp">게시판</a></li>
+				<li><a href="admin.jsp">관리자페이지</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -79,8 +80,7 @@
 					<thead>
 						<tr>
 							<th colspan="2"
-								style="background-color: #eeeeee; text-align: center;">게시판
-								글 수정 양식</th>
+								style="background-color: #eeeeee; text-align: center;">게시판 글 수정</th>
 						</tr>
 					</thead>
 					<tbody>

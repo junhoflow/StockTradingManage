@@ -9,7 +9,6 @@ public class StockDTO {
 	private String stockPrice;
 	private String buyReason;
 	private String todayDate;
-	private int stockAvailable;
 	private String userID;
 	public String getStockName() {
 		return stockName;
@@ -52,12 +51,6 @@ public class StockDTO {
 	}
 	public void setStockID(int stockID) {
 		this.stockID = stockID;
-	}
-	public int getStockAvailable() {
-		return stockAvailable;
-	}
-	public void setStockAvailable(int stockAvailable) {
-		this.stockAvailable = stockAvailable;
 	}
 	public String getUserID() {
 		return userID;

@@ -13,7 +13,7 @@ public class DebateDAO {
 
 	public DebateDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/final_exam";
+			String dbURL = "jdbc:mysql://localhost:3306/final_exam?characterEncoding=euckr&useUnicode=true&mysqlEncoding=euckr";
 			String dbID = "root";
 			String dbPassword = "1662";
 			Class.forName("com.mysql.jdbc.Driver");
@@ -52,7 +52,7 @@ public class DebateDAO {
 	}
 	
 	public int write(String debateTitle, String userID, String debateContent) {
-		String SQL = "INSERT INTO DEBATE VALUES (?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO DEBATE VALUES (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  getNext());
@@ -60,7 +60,6 @@ public class DebateDAO {
 			pstmt.setString(3,  userID);
 			pstmt.setString(4,  getDate());
 			pstmt.setString(5,  debateContent);
-			pstmt.setInt(6, 1);
 			return pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -69,7 +68,7 @@ public class DebateDAO {
 	}
 	
 	public ArrayList<Debate> getList(int pageNumber){
-		String SQL = "SELECT * FROM DEBATE WHERE debateID < ? AND debateAvailable = 1 ORDER BY debateID DESC LIMIT 10";
+		String SQL = "SELECT * FROM DEBATE WHERE debateID < ? ORDER BY debateID DESC LIMIT 10";
 		ArrayList<Debate> list = new ArrayList<Debate>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -82,7 +81,6 @@ public class DebateDAO {
 				debate.setUserID(rs.getString(3));
 				debate.setDebateDate(rs.getString(4));
 				debate.setDebateContent(rs.getString(5));
-				debate.setDebateAvailable(rs.getInt(6));
 				list.add(debate);
 			}
 		}catch(Exception e) {
@@ -92,7 +90,7 @@ public class DebateDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM DEBATE WHERE debateID < ? AND debateAvailable = 1";
+		String SQL = "SELECT * FROM DEBATE WHERE debateID < ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
@@ -119,7 +117,6 @@ public class DebateDAO {
 				debate.setUserID(rs.getString(3));
 				debate.setDebateDate(rs.getString(4));
 				debate.setDebateContent(rs.getString(5));
-				debate.setDebateAvailable(rs.getInt(6));
 				return debate;
 			}
 		}catch(Exception e) {
@@ -143,7 +140,7 @@ public class DebateDAO {
 	}
 	
 	public int delete(int debateID) {
-		String SQL = "UPDATE DEBATE SET debateAvailable = 0 WHERE debateID = ?";
+		String SQL = "DELETE FROM DEBATE WHERE debateID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, debateID);

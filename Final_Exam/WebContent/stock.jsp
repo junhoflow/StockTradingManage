@@ -32,6 +32,7 @@ table td {
 </style>
 </head>
 <body>
+
 	<%
 	String userID = null;
 	if (session.getAttribute("userID") != null) {
@@ -40,6 +41,10 @@ table td {
 	int pageNumber = 1;
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	}
+	int stockID = 0;
+	if (request.getParameter("stockID") != null) {
+		stockID = Integer.parseInt(request.getParameter("stockID"));
 	}
 	%>
 	<nav class="navbar navbar-default">
@@ -50,7 +55,8 @@ table td {
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">주식 매매일지 웹 사이트</a>
+			<a class="navbar-brand" href="main.jsp" style="color: black;"><strong>주식
+					매매일지 웹 사이트</strong></a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
@@ -58,6 +64,7 @@ table td {
 				<li><a href="main.jsp">메인</a></li>
 				<li class="active"><a href="stock.jsp">주식매매일지</a></li>
 				<li><a href="debate.jsp">게시판</a></li>
+				<li><a href="admin.jsp">관리자페이지</a></li>
 			</ul>
 			<%
 			if (userID == null) {
@@ -89,7 +96,7 @@ table td {
 	</nav>
 
 	<section class="container">
-		<h3>📈 주식 매매일지</h3>
+		<h3>📋 주식 매매일지</h3>
 		하루도 빠짐없이 매매일지를 작성하여 매매실력을 키워보세요.
 		<button type="button" class="btn btn-primary" data-toggle="modal"
 			data-target="#myModal" style="float: right;">매매일지 작성하기</button>
@@ -114,9 +121,9 @@ table td {
 							<div class="form-group col-sm-4">
 								<label>매매종류</label><br> <input type="radio"
 									style="width: 20px; height: 20px; border: 1px;" name="buysell"
-									value="buy"><strong>매수</strong> <input type="radio"
+									value="매수"><strong>매수</strong> <input type="radio"
 									style="width: 20px; height: 20px; border: 1px;" name="buysell"
-									value="sell">매도
+									value="매도">매도
 							</div>
 							<br>
 							<div class="form-group col-sm-6">
@@ -148,7 +155,7 @@ table td {
 			ArrayList<StockDTO> list = stockDAO.getList(pageNumber);
 			for (int i = 0; i < list.size(); i++) {
 				if (userID != null && userID.equals(list.get(i).getUserID())) {
-					if (list.get(i).getBuysell().equals("sell")) {
+					if (list.get(i).getBuysell().equals("매도")) {
 			%>
 			<div class="card">
 				<div class="card-header bg-light" style="padding: 1px 150px">
@@ -162,11 +169,17 @@ table td {
 					<h3 class="card-title">
 						<strong><%=list.get(i).getStockName()%></strong>
 					</h3>
-					<p class="card-text" style="font-size: 19px">매매이유 : <%=list.get(i).getBuyReason()%></p>
+					<p class="card-text" style="font-size: 19px">
+						매매이유 :
+						<%=list.get(i).getBuyReason()%></p>
 					<div class="row">
 						<div class="col-9 text-left">
-							<span style="font-size: 17px">체결수량 : </span>&nbsp;<strong><%=list.get(i).getStockQuantity()%></strong>&nbsp;&nbsp;&nbsp;/
-							<span style="font-size: 17px">체결가격 : </span>&nbsp;<strong><%=list.get(i).getStockPrice()%></strong>₩
+							<span style="font-size: 17px">체결수량 : </span>&nbsp;<strong><%=list.get(i).getStockQuantity()%></strong>개&nbsp;&nbsp;/&nbsp;
+							<span style="font-size: 17px">체결가격 : </span>&nbsp;<strong><%=list.get(i).getStockPrice()%></strong>원
+						</div>
+						<div style="float: right;">
+							<a onclick="return confirm('매매기록을 삭제하시겠습니까?')"
+								href="deleteStockAction.jsp?stockID=<%=list.get(i).getStockID()%>">삭제</a>
 						</div>
 					</div>
 				</div>
@@ -184,12 +197,20 @@ table td {
 					</div>
 				</div>
 				<div class="card-body" style="padding: 1px 170px">
-					<h3 class="card-title"><strong><%=list.get(i).getStockName()%></strong></h3>
-					<p class="card-text" style="font-size: 19px">매매이유 : <%=list.get(i).getBuyReason()%></p>
+					<h3 class="card-title">
+						<strong><%=list.get(i).getStockName()%></strong>
+					</h3>
+					<p class="card-text" style="font-size: 19px">
+						매매이유 :
+						<%=list.get(i).getBuyReason()%></p>
 					<div class="row">
 						<div class="col-9 text-left">
-							<span style="font-size: 17px">체결수량 : </span>&nbsp;<strong><%=list.get(i).getStockQuantity()%></strong>&nbsp;&nbsp;&nbsp;/
-							<span style="font-size: 17px">체결가격 : </span>&nbsp;<strong><%=list.get(i).getStockPrice()%></strong>₩
+							<span style="font-size: 17px">체결수량 : </span>&nbsp;<strong><%=list.get(i).getStockQuantity()%></strong>개&nbsp;&nbsp;/&nbsp;
+							<span style="font-size: 17px">체결가격 : </span>&nbsp;<strong><%=list.get(i).getStockPrice()%></strong>원
+						</div>
+						<div style="float: right;">
+							<a onclick="return confirm('매매기록을 삭제하시겠습니까?')"
+								href="deleteStockAction.jsp?stockID=<%=list.get(i).getStockID()%>">삭제</a>
 						</div>
 					</div>
 				</div>
@@ -197,12 +218,17 @@ table td {
 			<hr>
 			<%
 			}
+			} else if (userID == null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인이 필요합니다.')");
+			script.println("location.href = 'login.jsp'");
+			script.println("</script>");
 			}
 			}
 			%>
 
-		</div>
-		</div>
+		
 	</section>
 
 

@@ -10,40 +10,6 @@
 <meta name="viewport" content="width=device-width" , initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>주식 매매일지 웹사이트</title>
-<style>
-table.type08 {
-  border-collapse: collapse;
-  text-align: left;
-  line-height: 1.5;
-  border-left: 1px solid #ccc;
-  margin: 20px 10px;
-}
-
-table.type08 thead th {
-  padding: 10px;
-  font-weight: bold;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 2px solid #c00;
-  background: #dcdcd1;
-}
-table.type08 tbody th {
-  width: 150px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  background: #ececec;
-}
-table.type08 td {
-  width: 350px;
-  padding: 10px;
-  vertical-align: top;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-</style>
 </head>
 <body>
 	<%
@@ -60,7 +26,7 @@ table.type08 td {
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">주식 매매일지 웹 사이트</a>
+			<a class="navbar-brand" href="main.jsp" style="color: black;"><strong>주식 매매일지 웹 사이트</strong></a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
@@ -68,6 +34,7 @@ table.type08 td {
 				<li class="active"><a href="main.jsp">메인</a></li>
 				<li><a href="stock.jsp">주식매매일지</a></li>
 				<li><a href="debate.jsp">게시판</a></li>
+				<li><a href="admin.jsp">관리자페이지</a></li>
 			</ul>
 			<%
 			if (userID == null) {
@@ -99,32 +66,14 @@ table.type08 td {
 	</nav>
 
 	<section class="container">
-		<h1>주식 매매일지 웹사이트</h1>
-		하루도 빠짐없이 매매일지를 작성하여 매매실력을 키워보세요.
-		
-		
-		<table class="type08">
-  <thead>
-  <tr>
-    <th scope="cols">타이틀</th>
-    <th scope="cols">내용</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th scope="row">항목명</th>
-    <td>내용이 들어갑니다.</td>
-  </tr>
-  <tr>
-    <th scope="row">항목명</th>
-    <td>내용이 들어갑니다.</td>
-  </tr>
-  <tr>
-    <th scope="row">항목명</th>
-    <td>내용이 들어갑니다.</td>
-  </tr>
-  </tbody>
-</table>
+		<h1>📈 주식 매매일지 웹사이트</h1>
+
+		<h3>주식에 도움되는 사이트 모음</h3>
+		<ul>
+			<li><a href="https://finance.naver.com/main/main.nhn">https://finance.naver.com/main/main.nhn</a> </li>
+			<li><a href="http://finance.daum.net/">http://finance.daum.net/</a></li>
+			<li><a href="https://kr.investing.com/">https://kr.investing.com/</a></li>
+		</ul>
 	</section>
 
 
